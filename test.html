@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencarian Nama di Tabel</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabel Mahasiswa</h1>
+    <label for="searchName">Cari Nama:</label>
+    <input type="text" id="searchName" onkeyup="searchByName()" placeholder="Masukkan nama...">
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>NIM</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>12345678</td>
+                <td><button onclick="">Detail</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td>87654321</td>
+                <td><button onclick="alert('Detail for Jane Smith')">Detail</button></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Michael Brown</td>
+                <td>11223344</td>
+                <td><button onclick="alert('Detail for Michael Brown')">Detail</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function searchByName() {
+            const input = document.getElementById("searchName").value.toUpperCase(); // Ambil input pengguna dan ubah menjadi huruf besar
+            const table = document.getElementById("dataTable");
+            const rows = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < rows.length; i++) { // Looping setiap baris dalam tabel, mulai dari indeks 1 (abaikan header)
+                const cells = rows[i].getElementsByTagName("td");
+                let match = false;
+
+                if (cells.length > 1) {
+                    const nameCell = cells[1].textContent || cells[1].innerText; // Ambil nilai dari kolom nama
+                    if (nameCell.toUpperCase().indexOf(input) > -1) {
+                        match = true;
+                    }
+                }
+
+                rows[i].style.display = match ? "" : "none"; // Tampilkan atau sembunyikan baris berdasarkan pencocokan
+            }
+        }
+    </script>
+</body>
+</html>
